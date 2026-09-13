@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thread — Community</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="site-header">
+  <a class="site-logo" href="index.html">Community</a>
+  <div class="header-actions">
+    <a href="notifications.html" class="icon-btn" aria-label="Notifications">
+      <span class="badge" id="notif-badge" hidden>0</span>
+      <span aria-hidden="true">🔔</span>
+    </a>
+    <button type="button" class="icon-btn hamburger-toggle" id="hamburger-toggle"
+            aria-expanded="false" aria-controls="hamburger-menu" aria-label="Open menu">
+      <span aria-hidden="true">☰</span>
+    </button>
+  </div>
+</header>
+
+<nav id="hamburger-menu" class="hamburger-menu" hidden aria-label="Secondary">
+  <ul>
+    <li><a href="search.html">Search</a></li>
+    <li><a href="notifications.html">Notifications</a></li>
+    <li><a href="settings.html">Settings</a></li>
+    <li><a href="profile.html">Profile</a></li>
+    <li><a href="forums.html">General</a></li>
+    <li><a href="admin.html" id="admin-link" hidden>Admin</a></li>
+    <li><button type="button" id="logout-btn">Log out</button></li>
+  </ul>
+</nav>
+
+<main id="main-content">
+  <div id="thread-status" class="state-region" role="status" aria-live="polite"></div>
+
+  <article id="thread-article" hidden>
+    <header id="thread-header"></header>
+    <div id="thread-content" class="post-content"></div>
+
+    <div id="thread-moderation-actions" hidden>
+      <button type="button" id="lock-toggle-btn" class="btn btn-secondary"></button>
+    </div>
+
+    <section aria-labelledby="replies-heading">
+      <h2 id="replies-heading">Replies</h2>
+
+      <form id="reply-form" class="comment-form">
+        <label for="reply-input" class="sr-only">Write a reply</label>
+        <textarea id="reply-input" required></textarea>
+        <button type="submit" class="btn btn-primary">Reply</button>
+      </form>
+      <p id="locked-notice" class="muted-text" hidden>This thread is locked. New replies are disabled.</p>
+
+      <div id="replies-status" class="state-region" role="status" aria-live="polite"></div>
+      <ul id="replies-list" class="comment-list"></ul>
+    </section>
+
+    <button type="button" id="thread-report-btn" class="btn btn-link">Report thread</button>
+  </article>
+</main>
+
+<nav class="bottom-nav" aria-label="Primary">
+  <a href="index.html" class="bottom-nav-item">Home</a>
+  <a href="forums.html" class="bottom-nav-item" aria-current="page">General</a>
+  <a href="profile.html" class="bottom-nav-item">Profile</a>
+</nav>
+
+<script type="module" src="js/config.js"></script>
+<script type="module" src="js/supabase.js"></script>
+<script type="module" src="js/utils.js"></script>
+<script type="module" src="js/session.js"></script>
+<script type="module" src="js/navigation.js"></script>
+<script type="module" src="js/components.js"></script>
+<script type="module" src="js/forum.js"></script>
+</body>
+</html>

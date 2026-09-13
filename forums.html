@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>General — Community</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="site-header">
+  <a class="site-logo" href="index.html">Community</a>
+  <div class="header-actions">
+    <a href="notifications.html" class="icon-btn" aria-label="Notifications">
+      <span class="badge" id="notif-badge" hidden>0</span>
+      <span aria-hidden="true">🔔</span>
+    </a>
+    <button type="button" class="icon-btn hamburger-toggle" id="hamburger-toggle"
+            aria-expanded="false" aria-controls="hamburger-menu" aria-label="Open menu">
+      <span aria-hidden="true">☰</span>
+    </button>
+  </div>
+</header>
+
+<nav id="hamburger-menu" class="hamburger-menu" hidden aria-label="Secondary">
+  <ul>
+    <li><a href="search.html">Search</a></li>
+    <li><a href="notifications.html">Notifications</a></li>
+    <li><a href="settings.html">Settings</a></li>
+    <li><a href="profile.html">Profile</a></li>
+    <li><a href="forums.html">General</a></li>
+    <li><a href="admin.html" id="admin-link" hidden>Admin</a></li>
+    <li><button type="button" id="logout-btn">Log out</button></li>
+  </ul>
+</nav>
+
+<main id="main-content">
+  <h1>General</h1>
+
+  <button type="button" class="btn btn-primary" id="new-thread-btn">New Thread</button>
+
+  <form id="new-thread-form" class="panel" hidden>
+    <div class="field">
+      <label for="thread-title-input">Title</label>
+      <input type="text" id="thread-title-input" required>
+    </div>
+    <div class="field">
+      <label for="thread-content-input">Message</label>
+      <textarea id="thread-content-input" required></textarea>
+    </div>
+    <div id="new-thread-status" class="state-region" role="status" aria-live="polite"></div>
+    <button type="submit" class="btn btn-primary">Post Thread</button>
+  </form>
+
+  <div id="threads-status" class="state-region" role="status" aria-live="polite"></div>
+  <ul id="threads-list" class="thread-list"></ul>
+  <button type="button" id="threads-load-more" class="btn btn-secondary" hidden>Load more</button>
+</main>
+
+<nav class="bottom-nav" aria-label="Primary">
+  <a href="index.html" class="bottom-nav-item">Home</a>
+  <a href="forums.html" class="bottom-nav-item" aria-current="page">General</a>
+  <a href="profile.html" class="bottom-nav-item">Profile</a>
+</nav>
+
+<script type="module" src="js/config.js"></script>
+<script type="module" src="js/supabase.js"></script>
+<script type="module" src="js/utils.js"></script>
+<script type="module" src="js/session.js"></script>
+<script type="module" src="js/navigation.js"></script>
+<script type="module" src="js/components.js"></script>
+<script type="module" src="js/forums.js"></script>
+</body>
+</html>

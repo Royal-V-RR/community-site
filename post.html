@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Post — Community</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="site-header">
+  <a class="site-logo" href="index.html">Community</a>
+  <div class="header-actions">
+    <a href="notifications.html" class="icon-btn" aria-label="Notifications">
+      <span class="badge" id="notif-badge" hidden>0</span>
+      <span aria-hidden="true">🔔</span>
+    </a>
+    <button type="button" class="icon-btn hamburger-toggle" id="hamburger-toggle"
+            aria-expanded="false" aria-controls="hamburger-menu" aria-label="Open menu">
+      <span aria-hidden="true">☰</span>
+    </button>
+  </div>
+</header>
+
+<nav id="hamburger-menu" class="hamburger-menu" hidden aria-label="Secondary">
+  <ul>
+    <li><a href="search.html">Search</a></li>
+    <li><a href="notifications.html">Notifications</a></li>
+    <li><a href="settings.html">Settings</a></li>
+    <li><a href="profile.html">Profile</a></li>
+    <li><a href="forums.html">General</a></li>
+    <li><a href="admin.html" id="admin-link" hidden>Admin</a></li>
+    <li><button type="button" id="logout-btn">Log out</button></li>
+  </ul>
+</nav>
+
+<main id="main-content">
+  <div id="post-status" class="state-region" role="status" aria-live="polite"></div>
+
+  <article id="post-article" hidden>
+    <header id="post-header"></header>
+    <div id="post-content" class="post-content"></div>
+    <div id="post-attachments" class="attachment-grid"></div>
+
+    <div class="post-actions">
+      <div id="post-reactions"></div>
+      <button type="button" id="post-report-btn" class="btn btn-link">Report</button>
+      <div id="post-owner-actions" hidden>
+        <a href="#" id="post-edit-link" class="btn btn-secondary">Edit</a>
+        <button type="button" id="post-delete-btn" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+
+    <section aria-labelledby="comments-heading" id="comments-section">
+      <h2 id="comments-heading">Comments</h2>
+      <form id="comment-form" class="comment-form">
+        <label for="comment-input" class="sr-only">Write a comment</label>
+        <textarea id="comment-input" required></textarea>
+        <button type="submit" class="btn btn-primary">Post</button>
+      </form>
+      <div id="comments-status" class="state-region" role="status" aria-live="polite"></div>
+      <ul id="comments-list" class="comment-list"></ul>
+    </section>
+  </article>
+</main>
+
+<nav class="bottom-nav" aria-label="Primary">
+  <a href="index.html" class="bottom-nav-item">Home</a>
+  <a href="forums.html" class="bottom-nav-item">General</a>
+  <a href="profile.html" class="bottom-nav-item">Profile</a>
+</nav>
+
+<script type="module" src="js/config.js"></script>
+<script type="module" src="js/supabase.js"></script>
+<script type="module" src="js/utils.js"></script>
+<script type="module" src="js/session.js"></script>
+<script type="module" src="js/navigation.js"></script>
+<script type="module" src="js/components.js"></script>
+<script type="module" src="js/attachments.js"></script>
+<script type="module" src="js/reactions.js"></script>
+<script type="module" src="js/comments.js"></script>
+<script type="module" src="js/post.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Create Post — Community</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="site-header">
+  <button type="button" class="icon-btn" id="create-cancel-btn" aria-label="Cancel">
+    <span aria-hidden="true">←</span>
+  </button>
+  <h1 class="header-title">Create Post</h1>
+  <button type="button" class="btn btn-primary btn-small" id="publish-btn">Publish</button>
+</header>
+
+<main id="main-content" class="create-main">
+  <div id="create-status" class="state-region" role="status" aria-live="polite"></div>
+
+  <form id="create-form" novalidate>
+    <div class="field">
+      <label for="post-title-input">Title</label>
+      <input type="text" id="post-title-input" name="title">
+    </div>
+
+    <div class="field">
+      <label for="post-content-input">Content</label>
+      <textarea id="post-content-input" name="content" rows="8" required></textarea>
+    </div>
+
+    <div class="field">
+      <label for="post-files-input">Add files</label>
+      <input type="file" id="post-files-input" name="files" multiple>
+      <ul id="attachment-preview-list" class="attachment-preview-list"></ul>
+    </div>
+
+    <div class="create-actions-row">
+      <button type="button" class="btn btn-secondary" id="preview-btn">Preview</button>
+      <button type="button" class="btn btn-link" id="advanced-toggle" aria-expanded="false" aria-controls="advanced-panel">
+        Advanced options
+      </button>
+    </div>
+
+    <fieldset id="advanced-panel" class="advanced-panel" hidden>
+      <legend>Advanced options</legend>
+
+      <div class="field field-inline">
+        <label for="opt-show-title">Show title</label>
+        <input type="checkbox" id="opt-show-title" checked>
+      </div>
+      <div class="field field-inline">
+        <label for="opt-allow-comments">Comments on</label>
+        <input type="checkbox" id="opt-allow-comments" checked>
+      </div>
+      <div class="field field-inline">
+        <label for="opt-allow-reactions">Reactions on</label>
+        <input type="checkbox" id="opt-allow-reactions" checked>
+      </div>
+      <div class="field field-inline">
+        <label for="opt-featured">Featured</label>
+        <input type="checkbox" id="opt-featured">
+      </div>
+      <div class="field field-inline">
+        <label for="opt-pinned">Pinned</label>
+        <input type="checkbox" id="opt-pinned">
+      </div>
+
+      <div class="field">
+        <label for="opt-attachment-layout">Attachment layout</label>
+        <select id="opt-attachment-layout">
+          <option value="grid">Grid</option>
+          <option value="stack">Stack</option>
+          <option value="carousel">Carousel</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="opt-image-size">Image size</label>
+        <select id="opt-image-size">
+          <option value="medium">Medium</option>
+          <option value="small">Small</option>
+          <option value="large">Large</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="opt-alignment">Alignment</label>
+        <select id="opt-alignment">
+          <option value="left">Left</option>
+          <option value="center">Center</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="opt-accent">Accent color</label>
+        <input type="color" id="opt-accent" value="#5b8def">
+      </div>
+
+      <div class="field">
+        <label for="opt-content-format">Content format</label>
+        <select id="opt-content-format">
+          <option value="plain">Plain text</option>
+          <option value="markdown_lite">Simple formatting</option>
+        </select>
+      </div>
+    </fieldset>
+  </form>
+
+  <div id="preview-panel" class="panel" hidden>
+    <h2>Preview</h2>
+    <div id="preview-content"></div>
+  </div>
+</main>
+
+<script type="module" src="js/config.js"></script>
+<script type="module" src="js/supabase.js"></script>
+<script type="module" src="js/utils.js"></script>
+<script type="module" src="js/session.js"></script>
+<script type="module" src="js/uploads.js"></script>
+<script type="module" src="js/attachments.js"></script>
+<script type="module" src="js/create.js"></script>
+</body>
+</html>

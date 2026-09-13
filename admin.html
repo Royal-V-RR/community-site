@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin — Community</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="site-header">
+  <a class="site-logo" href="index.html">Community</a>
+  <div class="header-actions">
+    <button type="button" class="icon-btn hamburger-toggle" id="hamburger-toggle"
+            aria-expanded="false" aria-controls="hamburger-menu" aria-label="Open menu">
+      <span aria-hidden="true">☰</span>
+    </button>
+  </div>
+</header>
+
+<nav id="hamburger-menu" class="hamburger-menu" hidden aria-label="Secondary">
+  <ul>
+    <li><a href="search.html">Search</a></li>
+    <li><a href="notifications.html">Notifications</a></li>
+    <li><a href="settings.html">Settings</a></li>
+    <li><a href="profile.html">Profile</a></li>
+    <li><a href="forums.html">General</a></li>
+    <li><a href="admin.html" id="admin-link" aria-current="page">Admin</a></li>
+    <li><button type="button" id="logout-btn">Log out</button></li>
+  </ul>
+</nav>
+
+<main id="main-content" class="admin-main">
+  <div id="admin-guard-status" class="state-region" role="status" aria-live="polite"></div>
+
+  <div id="admin-content" hidden>
+    <h1>Admin</h1>
+
+    <div class="tabs" role="tablist" aria-label="Admin sections">
+      <button type="button" role="tab" aria-selected="true" class="tab-btn" data-panel="users-panel">Users</button>
+      <button type="button" role="tab" aria-selected="false" class="tab-btn" data-panel="reports-panel">Reports</button>
+      <button type="button" role="tab" aria-selected="false" class="tab-btn" data-panel="forum-panel">Forum</button>
+      <button type="button" role="tab" aria-selected="false" class="tab-btn" data-panel="audit-panel">Audit Log</button>
+      <button type="button" role="tab" aria-selected="false" class="tab-btn" data-panel="site-panel">Site Settings</button>
+    </div>
+
+    <section id="users-panel" class="admin-panel" aria-labelledby="users-heading">
+      <h2 id="users-heading">Users</h2>
+      <div class="field">
+        <label for="user-search-input" class="sr-only">Search users</label>
+        <input type="search" id="user-search-input" placeholder="Search users…">
+      </div>
+      <div id="users-status" class="state-region" role="status" aria-live="polite"></div>
+      <ul id="users-list" class="admin-list"></ul>
+    </section>
+
+    <section id="reports-panel" class="admin-panel" aria-labelledby="reports-heading" hidden>
+      <h2 id="reports-heading">Reports</h2>
+      <div id="reports-status" class="state-region" role="status" aria-live="polite"></div>
+      <ul id="reports-list" class="admin-list"></ul>
+    </section>
+
+    <section id="forum-panel" class="admin-panel" aria-labelledby="forum-mgmt-heading" hidden>
+      <h2 id="forum-mgmt-heading">Forum Management</h2>
+      <div id="forum-mgmt-status" class="state-region" role="status" aria-live="polite"></div>
+      <ul id="forum-mgmt-list" class="admin-list"></ul>
+    </section>
+
+    <section id="audit-panel" class="admin-panel" aria-labelledby="audit-heading" hidden>
+      <h2 id="audit-heading">Audit Log</h2>
+      <div id="audit-status" class="state-region" role="status" aria-live="polite"></div>
+      <ul id="audit-list" class="admin-list"></ul>
+    </section>
+
+    <section id="site-panel" class="admin-panel" aria-labelledby="site-settings-heading" hidden>
+      <h2 id="site-settings-heading">Site Settings</h2>
+      <form id="site-settings-form" novalidate>
+        <div class="field">
+          <label for="max-file-size-input">Max file size (MB)</label>
+          <input type="number" id="max-file-size-input" min="1" max="500">
+        </div>
+        <div class="field">
+          <label for="max-files-input">Max files per post</label>
+          <input type="number" id="max-files-input" min="1" max="50">
+        </div>
+        <div id="site-settings-status" class="state-region" role="status" aria-live="polite"></div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </section>
+  </div>
+</main>
+
+<nav class="bottom-nav" aria-label="Primary">
+  <a href="index.html" class="bottom-nav-item">Home</a>
+  <a href="forums.html" class="bottom-nav-item">General</a>
+  <a href="profile.html" class="bottom-nav-item">Profile</a>
+</nav>
+
+<script type="module" src="js/config.js"></script>
+<script type="module" src="js/supabase.js"></script>
+<script type="module" src="js/utils.js"></script>
+<script type="module" src="js/session.js"></script>
+<script type="module" src="js/navigation.js"></script>
+<script type="module" src="js/components.js"></script>
+<script type="module" src="js/moderation.js"></script>
+<script type="module" src="js/admin.js"></script>
+</body>
+</html>
