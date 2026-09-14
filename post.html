@@ -51,25 +51,36 @@
 
   <article id="post-article" hidden>
     <header id="post-header"></header>
-    <div id="post-content" class="post-content"></div>
+    <h1 id="post-title" class="post-title" hidden></h1>
+    <div id="post-content" class="post-content post-content--main"></div>
     <div id="post-poll"></div>
     <div id="post-attachments" class="attachment-grid"></div>
 
     <div class="post-actions">
       <div id="post-reactions"></div>
-      <button type="button" id="post-report-btn" class="btn btn-link">Report</button>
-      <div id="post-owner-actions" hidden>
-        <a href="#" id="post-edit-link" class="btn btn-secondary">Edit</a>
-        <button type="button" id="post-delete-btn" class="btn btn-danger">Delete</button>
+      <div class="post-actions-spacer"></div>
+      <div class="overflow-menu">
+        <button type="button" id="post-overflow-btn" class="icon-btn" aria-haspopup="true" aria-expanded="false" aria-controls="post-overflow-menu" aria-label="More options">
+          <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+        </button>
+        <div id="post-overflow-menu" class="overflow-menu-panel" hidden>
+          <button type="button" id="post-report-btn">Report</button>
+          <div id="post-owner-actions" hidden>
+            <a href="#" id="post-edit-link">Edit</a>
+            <button type="button" id="post-delete-btn" class="danger">Delete</button>
+          </div>
+        </div>
       </div>
     </div>
 
     <section aria-labelledby="comments-heading" id="comments-section">
       <h2 id="comments-heading">Comments</h2>
-      <form id="comment-form" class="comment-form">
+      <form id="comment-form" class="chat-composer">
         <label for="comment-input" class="sr-only">Write a comment</label>
-        <textarea id="comment-input" required></textarea>
-        <button type="submit" class="btn btn-primary">Post</button>
+        <textarea id="comment-input" rows="1" placeholder="Add a comment…"></textarea>
+        <button type="submit" class="chat-composer-send" aria-label="Post comment">
+          <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 20l16-8L4 4v6l10 2-10 2v6Z"/></svg>
+        </button>
       </form>
       <div id="comments-status" class="state-region" role="status" aria-live="polite"></div>
       <ul id="comments-list" class="comment-list"></ul>
