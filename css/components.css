@@ -139,6 +139,106 @@
 .pill { font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--bg-elevated); color: var(--accent); border: 1px solid var(--border); }
 
 .post-content { white-space: pre-wrap; word-break: break-word; }
+.post-content--main { font-size: 1.05rem; line-height: 1.65; }
+
+.post-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin: var(--space-2) 0 var(--space-1);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Post actions row + overflow menu (replaces always-visible buttons)     */
+/* ---------------------------------------------------------------------- */
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+}
+.post-actions-spacer { flex: 1; }
+
+.overflow-menu { position: relative; }
+.overflow-menu-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + var(--space-1));
+  z-index: 40;
+  min-width: 160px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: var(--space-1);
+  display: flex;
+  flex-direction: column;
+  animation: fadeSlideUp 0.18s ease both;
+}
+.overflow-menu-panel button,
+.overflow-menu-panel a {
+  display: block;
+  width: 100%;
+  text-align: left;
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border: none;
+  background: none;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 40px;
+  cursor: pointer;
+}
+.overflow-menu-panel button:hover, .overflow-menu-panel a:hover { background: var(--bg-card); text-decoration: none; }
+.overflow-menu-panel .danger { color: var(--danger); }
+.overflow-menu-panel .danger:hover { background: color-mix(in srgb, var(--danger) 12%, transparent); }
+
+/* ---------------------------------------------------------------------- */
+/* Chat-style composer (comments/replies) — compact, auto-growing         */
+/* ---------------------------------------------------------------------- */
+.chat-composer {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 6px 6px var(--space-3);
+  transition: border-color var(--transition-fast);
+}
+.chat-composer:focus-within { border-color: var(--accent); }
+.chat-composer textarea {
+  flex: 1;
+  border: none;
+  background: none;
+  min-height: 32px;
+  max-height: 160px;
+  padding: 6px 0;
+  resize: none;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.chat-composer textarea:focus-visible { box-shadow: none; }
+.chat-composer-send {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+.chat-composer-send:hover { background: var(--accent-strong); }
+.chat-composer-send:active { transform: scale(0.9); }
+.chat-composer-send .icon { width: 18px; height: 18px; }
 
 /* ---------------------------------------------------------------------- */
 /* Attachments                                                             */
@@ -179,7 +279,6 @@
 /* ---------------------------------------------------------------------- */
 /* Reactions                                                               */
 /* ---------------------------------------------------------------------- */
-.post-actions { display: flex; align-items: center; gap: var(--space-3); margin: var(--space-3) 0; flex-wrap: wrap; }
 .reaction-btn {
   display: inline-flex;
   align-items: center;
