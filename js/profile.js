@@ -4,7 +4,7 @@
 
 import { supabase } from './supabase.js';
 import { qs, setState, friendlyError, getUrlParam, escapeHtml, validators, showToast } from './utils.js';
-import { avatarImg, roleBadge, renderPostCard } from './components.js';
+import { renderPostCard } from './components.js';
 import { whenReady, getSession, getProfile, refreshProfile } from './session.js';
 import { getFollowState, toggleFollow } from './follows.js';
 import { uploadAvatar, uploadBanner } from './uploads.js';
@@ -66,12 +66,27 @@ async function loadProfile() {
 function render() {
   view.hidden = false;
   bannerEl.style.backgroundImage = profileData.banner_path ? `url(${CSS.escape(profileData.banner_path)})` : '';
+
   const freshAvatarEl = qs('#profile-avatar');
-  freshAvatarEl.outerHTML = avatarImg(profileData, 88).replace('class="avatar"', 'id="profile-avatar" class="avatar avatar-lg"');
+  freshAvatarEl.src = profileData.avatar_path
+    ? profileData.avatar_path
+    : `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(profileData.display_name || profileData.username || '?')}`;
+  freshAvatarEl.alt = profileData.display_name || profileData.username || 'User';
+
   displayNameEl.textContent = profileData.display_name;
   usernameEl.textContent = `@${profileData.username}`;
+
   const freshRoleBadgeEl = qs('#profile-role-badge');
-  freshRoleBadgeEl.outerHTML = roleBadge(profileData.role) || '<span id="profile-role-badge"></span>';
+  if (profileData.role && profileData.role !== 'MEMBER') {
+    freshRoleBadgeEl.textContent = profileData.role;
+    freshRoleBadgeEl.dataset.role = profileData.role;
+    freshRoleBadgeEl.hidden = false;
+  } else {
+    freshRoleBadgeEl.textContent = '';
+    freshRoleBadgeEl.removeAttribute('data-role');
+    freshRoleBadgeEl.hidden = true;
+  }
+
   bioEl.textContent = profileData.bio || '';
 
   const session = getSession();
@@ -189,3 +204,13 @@ editForm?.addEventListener('submit', async (event) => {
 });
 
 whenReady().then(loadProfile);
+
+// iOS Safari restores the exact DOM state (including whichever panel was
+// visible) from its back-forward cache on a swipe-back, without re-running
+// this script. Force it back to view mode so editing doesn't "stick".
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) {
+    editForm.hidden = true;
+    view.hidden = false;
+  }
+});

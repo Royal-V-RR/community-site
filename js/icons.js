@@ -42,6 +42,10 @@ export const ICONS = {
   shield: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/></svg>`,
 
   logOut: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M14 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4"/><path d="M10 8l-4 4 4 4"/><path d="M6 12h12"/></svg>`,
+
+  moreHorizontal: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>`,
+
+  send: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 20l16-8L4 4v6l10 2-10 2v6Z"/></svg>`,
 };
 
 /** Convenience: build a labelled icon button's inner markup (icon + sr-only text). */

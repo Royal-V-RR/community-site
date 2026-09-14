@@ -17,13 +17,17 @@ const statusRegion = qs('#post-status');
 const article = qs('#post-article');
 const headerEl = qs('#post-header');
 const contentEl = qs('#post-content');
+const titleEl = qs('#post-title');
 const attachmentsEl = qs('#post-attachments');
 const pollEl = qs('#post-poll');
 const reactionsEl = qs('#post-reactions');
+const overflowBtn = qs('#post-overflow-btn');
+const overflowMenu = qs('#post-overflow-menu');
 const ownerActions = qs('#post-owner-actions');
 const editLink = qs('#post-edit-link');
 const deleteBtn = qs('#post-delete-btn');
 const reportBtn = qs('#post-report-btn');
+const commentInput = qs('#comment-input');
 
 let currentPost = null;
 
@@ -62,6 +66,14 @@ async function loadPost() {
     </div>
   `;
   contentEl.innerHTML = textToSafeHtml(post.content);
+
+  const showTitle = post.appearance_settings?.show_title !== false;
+  if (post.title && showTitle) {
+    titleEl.textContent = post.title;
+    titleEl.hidden = false;
+  } else {
+    titleEl.hidden = true;
+  }
 
   applyAppearanceSettings(post.appearance_settings);
 
@@ -107,8 +119,40 @@ function updateOwnerControls() {
   }
 }
 
+overflowBtn?.addEventListener('click', () => {
+  const isOpen = overflowBtn.getAttribute('aria-expanded') === 'true';
+  overflowBtn.setAttribute('aria-expanded', String(!isOpen));
+  overflowMenu.hidden = isOpen;
+});
+
+document.addEventListener('click', (event) => {
+  if (overflowMenu.hidden) return;
+  if (overflowMenu.contains(event.target) || overflowBtn.contains(event.target)) return;
+  overflowMenu.hidden = true;
+  overflowBtn.setAttribute('aria-expanded', 'false');
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !overflowMenu.hidden) {
+    overflowMenu.hidden = true;
+    overflowBtn.setAttribute('aria-expanded', 'false');
+    overflowBtn.focus();
+  }
+});
+
+function closeOverflowMenu() {
+  overflowMenu.hidden = true;
+  overflowBtn.setAttribute('aria-expanded', 'false');
+}
+
+commentInput?.addEventListener('input', () => {
+  commentInput.style.height = 'auto';
+  commentInput.style.height = `${Math.min(commentInput.scrollHeight, 160)}px`;
+});
+
 deleteBtn?.addEventListener('click', async () => {
   if (!currentPost) return;
+  closeOverflowMenu();
   if (!window.confirm('Delete this post? This cannot be undone.')) return;
   try {
     await deletePostWithAttachments(currentPost.id);
@@ -120,6 +164,7 @@ deleteBtn?.addEventListener('click', async () => {
 
 reportBtn?.addEventListener('click', async () => {
   if (!currentPost) return;
+  closeOverflowMenu();
   if (!getSession()) {
     window.location.href = `login.html?redirect=post.html?id=${encodeURIComponent(currentPost.id)}`;
     return;
