@@ -1,13 +1,20 @@
 -- 008_storage_policies.sql
--- Fixes broken avatar/banner/attachment images. uploads.js always calls
--- getPublicUrl(), which only returns a working URL if the bucket itself is
--- marked public — RLS alone doesn't do that. This file both marks the three
--- buckets public (read access) and adds RLS so only the right people can
--- write to them. Assumes the buckets already exist (Storage -> New bucket:
--- avatars, banners, post-attachments) — create them first if you haven't.
+-- Fixes "Bucket not found" on every image upload, plus broken
+-- avatar/banner/attachment images once uploads did work. uploads.js calls
+-- supabase.storage.from('avatars'/'banners'/'post-attachments').upload(...),
+-- which fails with "Bucket not found" unless those buckets actually exist in
+-- Storage — a manual "Storage -> New bucket" step that's easy to skip. This
+-- file creates the three buckets itself (safe to re-run), marks them public
+-- for read access (getPublicUrl() only returns a working URL if the bucket
+-- itself is public — RLS alone doesn't do that), and adds RLS so only the
+-- right people can write to them.
 -- Paste the CONTENTS of this file into the Supabase SQL Editor. Do not paste the filename.
 
-update storage.buckets set public = true where id in ('avatars', 'banners', 'post-attachments');
+insert into storage.buckets (id, name, public)
+values ('avatars', 'avatars', true),
+       ('banners', 'banners', true),
+       ('post-attachments', 'post-attachments', true)
+on conflict (id) do update set public = true;
 
 alter table storage.objects enable row level security;
 
