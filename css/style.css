@@ -438,7 +438,7 @@ select {
 
 .field-error { color: var(--danger); font-size: 0.85rem; margin: var(--space-1) 0 0; min-height: 1.1em; }
 
-.auth-form, #create-form, #new-thread-form, #edit-profile-form { display: block; }
+.auth-form:not([hidden]), #create-form:not([hidden]), #new-thread-form:not([hidden]), #edit-profile-form:not([hidden]) { display: block; }
 .auth-links { text-align: center; font-size: 0.9rem; }
 
 /* ---------------------------------------------------------------------- */
@@ -504,3 +504,11 @@ select {
 .state-region { min-height: 1.2em; font-size: 0.9rem; color: var(--text-muted); }
 .state-region[data-state="error"] { color: var(--danger); }
 .state-region:empty { display: none; }
+
+/* Safety net: the `hidden` attribute must always win over any component's
+   own `display` rule. Without `!important` here, an author rule like
+   `#edit-profile-form { display: block; }` beats the browser's built-in
+   `[hidden] { display: none; }` (author styles always beat UA styles,
+   regardless of specificity), which was making panels like the profile
+   edit form render even while `hidden` was set. */
+[hidden] { display: none !important; }

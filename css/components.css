@@ -84,7 +84,17 @@
   background-size: cover;
   background-position: center;
 }
-.profile-avatar { display: block; }
+.profile-avatar {
+  display: block;
+  width: 88px;
+  height: 88px;
+  margin-top: -44px;
+  margin-left: var(--space-4);
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg-card);
+  border: 3px solid var(--bg);
+}
 
 .role-badge {
   display: inline-block;
