@@ -8,22 +8,38 @@ import { onSessionChange, isOwner, isStaff, requireAuth, whenReady } from './ses
 
 const hamburgerToggle = qs('#hamburger-toggle');
 const hamburgerMenu = qs('#hamburger-menu');
+const hamburgerClose = qs('#hamburger-close');
+const menuBackdrop = qs('#menu-backdrop');
 const adminLink = qs('#admin-link');
 const logoutBtn = qs('#logout-btn');
 const notifBadge = qs('#notif-badge');
 const fab = qs('#create-post-fab');
 
+let closeTimer = null;
+
 function closeMenu() {
   if (!hamburgerMenu) return;
-  hamburgerMenu.hidden = true;
+  clearTimeout(closeTimer);
+  hamburgerMenu.classList.remove('is-open');
+  menuBackdrop?.classList.remove('is-open');
   hamburgerToggle?.setAttribute('aria-expanded', 'false');
+  closeTimer = setTimeout(() => {
+    hamburgerMenu.hidden = true;
+    if (menuBackdrop) menuBackdrop.hidden = true;
+  }, 220);
 }
 
 function openMenu() {
   if (!hamburgerMenu) return;
+  clearTimeout(closeTimer);
   hamburgerMenu.hidden = false;
+  if (menuBackdrop) menuBackdrop.hidden = false;
   hamburgerToggle?.setAttribute('aria-expanded', 'true');
-  qs('a, button', hamburgerMenu)?.focus();
+  requestAnimationFrame(() => {
+    hamburgerMenu.classList.add('is-open');
+    menuBackdrop?.classList.add('is-open');
+  });
+  setTimeout(() => qs('a, button', hamburgerMenu)?.focus(), 220);
 }
 
 if (hamburgerToggle && hamburgerMenu) {
@@ -33,14 +49,15 @@ if (hamburgerToggle && hamburgerMenu) {
     else openMenu();
   });
 
-  document.addEventListener('click', (event) => {
-    if (hamburgerMenu.hidden) return;
-    if (hamburgerMenu.contains(event.target) || hamburgerToggle.contains(event.target)) return;
+  hamburgerClose?.addEventListener('click', () => {
     closeMenu();
+    hamburgerToggle.focus();
   });
 
+  menuBackdrop?.addEventListener('click', closeMenu);
+
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && !hamburgerMenu.hidden) {
+    if (event.key === 'Escape' && hamburgerToggle.getAttribute('aria-expanded') === 'true') {
       closeMenu();
       hamburgerToggle.focus();
     }

@@ -30,6 +30,18 @@ export const ICONS = {
   poll: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 20V10"/><path d="M12 20V4"/><path d="M19 20v-7"/></svg>`,
 
   trash: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/></svg>`,
+
+  home: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h4v-6h2v6h4a1 1 0 0 0 1-1v-9"/></svg>`,
+
+  messageSquare: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z"/></svg>`,
+
+  user: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5.5 7-5.5s5.8 1.9 7 5.5"/></svg>`,
+
+  settings: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M4.9 6.2l1.6 1.5M17.5 16.3l1.6 1.5M3 12h2.2M18.8 12H21M4.9 17.8l1.6-1.5M17.5 7.7l1.6-1.5"/></svg>`,
+
+  shield: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/></svg>`,
+
+  logOut: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M14 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4"/><path d="M10 8l-4 4 4 4"/><path d="M6 12h12"/></svg>`,
 };
 
 /** Convenience: build a labelled icon button's inner markup (icon + sr-only text). */

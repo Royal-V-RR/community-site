@@ -47,6 +47,11 @@ export async function toggleReaction(postId, container) {
 
   btn.setAttribute('aria-pressed', String(!wasReacted));
   iconEl.innerHTML = wasReacted ? ICONS.heartOutline : ICONS.heartFilled;
+  if (!wasReacted) {
+    iconEl.classList.remove('reaction-icon-pop');
+    void iconEl.offsetWidth; // restart the animation if clicked again quickly
+    iconEl.classList.add('reaction-icon-pop');
+  }
   countEl.textContent = String(Number(countEl.textContent) + (wasReacted ? -1 : 1));
 
   try {
