@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>(function(){try{var t=localStorage.getItem("community-site:theme")||"dark";var r=t==="system"?(window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"):t;document.documentElement.dataset.theme=r;var a=localStorage.getItem("community-site:accent");if(a)document.documentElement.style.setProperty("--accent",a);}catch(e){}})();</script>
-<title>Home · Community</title>
+<title>Profile · Community</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/responsive.css">
@@ -39,26 +39,65 @@
 </nav>
 
 <main id="main-content">
-  <section aria-labelledby="featured-heading" id="featured-section" hidden>
-    <h2 id="featured-heading">Featured</h2>
-    <div id="featured-list" class="post-list"></div>
-  </section>
+  <div id="profile-status" class="state-region" role="status" aria-live="polite"></div>
 
-  <section aria-labelledby="feed-heading">
-    <h1 id="feed-heading">Home</h1>
-    <div id="feed-status" class="state-region" role="status" aria-live="polite"></div>
-    <div id="feed-list" class="post-list"></div>
-    <button type="button" id="feed-load-more" class="btn btn-secondary" hidden>Load more</button>
-  </section>
+  <div id="profile-view" hidden>
+    <div class="profile-banner" id="profile-banner"></div>
+    <img id="profile-avatar" class="profile-avatar" alt="">
+    <h1 id="profile-display-name"></h1>
+    <p id="profile-username" class="muted-text"></p>
+    <span id="profile-role-badge" class="role-badge"></span>
+    <p id="profile-bio"></p>
+
+    <div id="profile-follow-stats" hidden>
+      <span id="followers-count"></span> followers ·
+      <span id="following-count"></span> following
+      <button type="button" id="follow-toggle-btn" class="btn btn-secondary"></button>
+    </div>
+
+    <button type="button" id="edit-profile-btn" class="btn btn-secondary" hidden>Edit Profile</button>
+
+    <section aria-labelledby="activity-heading">
+      <h2 id="activity-heading">Activity</h2>
+      <div id="profile-activity-list"></div>
+    </section>
+  </div>
+
+  <form id="edit-profile-form" class="panel" hidden novalidate>
+    <h2>Edit Profile</h2>
+    <div class="field">
+      <label for="edit-display-name">Display name</label>
+      <input type="text" id="edit-display-name" required>
+    </div>
+    <div class="field">
+      <label for="edit-username">Username</label>
+      <input type="text" id="edit-username" required>
+    </div>
+    <div class="field">
+      <label for="edit-bio">Bio</label>
+      <textarea id="edit-bio"></textarea>
+    </div>
+    <div class="field">
+      <label for="edit-avatar">Avatar</label>
+      <input type="file" id="edit-avatar" accept="image/png,image/jpeg,image/webp">
+    </div>
+    <div class="field">
+      <label for="edit-banner">Banner</label>
+      <input type="file" id="edit-banner" accept="image/png,image/jpeg,image/webp">
+    </div>
+    <div id="edit-profile-status" class="state-region" role="status" aria-live="polite"></div>
+    <div class="create-actions-row">
+      <button type="button" class="btn btn-link" id="cancel-edit-profile">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
 </main>
 
 <nav class="bottom-nav" aria-label="Primary">
-  <a href="index.html" class="bottom-nav-item" aria-current="page">Home</a>
+  <a href="index.html" class="bottom-nav-item">Home</a>
   <a href="forums.html" class="bottom-nav-item">General</a>
-  <a href="profile.html" class="bottom-nav-item">Profile</a>
+  <a href="profile.html" class="bottom-nav-item" aria-current="page">Profile</a>
 </nav>
-
-<a href="create.html" id="create-post-fab" class="fab" hidden aria-label="Create post"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg></a>
 
 <script type="module" src="js/config.js"></script>
 <script type="module" src="js/supabase.js"></script>
@@ -66,6 +105,7 @@
 <script type="module" src="js/session.js"></script>
 <script type="module" src="js/navigation.js"></script>
 <script type="module" src="js/components.js"></script>
-<script type="module" src="js/feed.js"></script>
+<script type="module" src="js/follows.js"></script>
+<script type="module" src="js/profile.js"></script>
 </body>
 </html>
