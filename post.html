@@ -21,20 +21,28 @@
     </a>
     <button type="button" class="icon-btn hamburger-toggle" id="hamburger-toggle"
             aria-expanded="false" aria-controls="hamburger-menu" aria-label="Open menu">
-      <span aria-hidden="true"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg></span>
+      <span class="hamburger-bars" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
     </button>
   </div>
 </header>
 
+<div class="menu-backdrop" id="menu-backdrop" hidden></div>
 <nav id="hamburger-menu" class="hamburger-menu" hidden aria-label="Secondary">
+  <div class="hamburger-menu-header">
+    <span class="hamburger-menu-title">Menu</span>
+    <button type="button" class="icon-btn" id="hamburger-close" aria-label="Close menu"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg></button>
+  </div>
   <ul>
-    <li><a href="search.html">Search</a></li>
-    <li><a href="notifications.html">Notifications</a></li>
-    <li><a href="settings.html">Settings</a></li>
-    <li><a href="profile.html">Profile</a></li>
-    <li><a href="forums.html">General</a></li>
-    <li><a href="admin.html" id="admin-link" hidden>Admin</a></li>
-    <li><button type="button" id="logout-btn">Log out</button></li>
+    <li><a href="search.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span></a></li>
+    <li><a href="notifications.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 3.2 1 5 2 6H4c1-1 2-2.8 2-6Z"/><path d="M9.5 19a2.5 2.5 0 0 0 5 0"/></svg><span>Notifications</span></a></li>
+    <li><a href="settings.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M4.9 6.2l1.6 1.5M17.5 16.3l1.6 1.5M3 12h2.2M18.8 12H21M4.9 17.8l1.6-1.5M17.5 7.7l1.6-1.5"/></svg><span>Settings</span></a></li>
+    <li><a href="profile.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5.5 7-5.5s5.8 1.9 7 5.5"/></svg><span>Profile</span></a></li>
+    <li><a href="forums.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z"/></svg><span>General</span></a></li>
+    <li><a href="admin.html" id="admin-link" hidden><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/></svg><span>Admin</span></a></li>
+  </ul>
+  <div class="hamburger-menu-divider"></div>
+  <ul>
+    <li><button type="button" id="logout-btn" class="hamburger-logout"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M14 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4"/><path d="M10 8l-4 4 4 4"/><path d="M6 12h12"/></svg><span>Log out</span></button></li>
   </ul>
 </nav>
 
@@ -70,9 +78,9 @@
 </main>
 
 <nav class="bottom-nav" aria-label="Primary">
-  <a href="index.html" class="bottom-nav-item">Home</a>
-  <a href="forums.html" class="bottom-nav-item">General</a>
-  <a href="profile.html" class="bottom-nav-item">Profile</a>
+    <a href="index.html" class="bottom-nav-item"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h4v-6h2v6h4a1 1 0 0 0 1-1v-9"/></svg><span>Home</span></a>
+    <a href="forums.html" class="bottom-nav-item"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z"/></svg><span>General</span></a>
+    <a href="profile.html" class="bottom-nav-item"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5.5 7-5.5s5.8 1.9 7 5.5"/></svg><span>Profile</span></a>
 </nav>
 
 <script type="module" src="js/config.js"></script>
