@@ -19,6 +19,51 @@
 .icon-lg { width: 28px; height: 28px; }
 
 /* ---------------------------------------------------------------------- */
+/* Motion — entrances, reveals, feedback                                   */
+/* ---------------------------------------------------------------------- */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.4); }
+  60% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.panel:not([hidden]),
+.advanced-panel:not([hidden]) {
+  animation: fadeSlideUp 0.3s ease both;
+}
+
+.post-list > *,
+.comment-list > *,
+.thread-list > *,
+.notification-list > *,
+.admin-list > * {
+  animation: fadeSlideUp 0.4s ease both;
+}
+.post-list > *:nth-child(2), .comment-list > *:nth-child(2), .thread-list > *:nth-child(2),
+.notification-list > *:nth-child(2), .admin-list > *:nth-child(2) { animation-delay: 40ms; }
+.post-list > *:nth-child(3), .comment-list > *:nth-child(3), .thread-list > *:nth-child(3),
+.notification-list > *:nth-child(3), .admin-list > *:nth-child(3) { animation-delay: 80ms; }
+.post-list > *:nth-child(4), .comment-list > *:nth-child(4), .thread-list > *:nth-child(4),
+.notification-list > *:nth-child(4), .admin-list > *:nth-child(4) { animation-delay: 120ms; }
+.post-list > *:nth-child(5), .comment-list > *:nth-child(5), .thread-list > *:nth-child(5),
+.notification-list > *:nth-child(5), .admin-list > *:nth-child(5) { animation-delay: 160ms; }
+.post-list > *:nth-child(6), .comment-list > *:nth-child(6), .thread-list > *:nth-child(6),
+.notification-list > *:nth-child(6), .admin-list > *:nth-child(6) { animation-delay: 200ms; }
+
+.admin-panel:not([hidden]) { animation: fadeSlideUp 0.3s ease both; }
+
+.reaction-icon-pop { animation: heartPop 0.4s cubic-bezier(.34,1.56,.64,1); }
+
+/* ---------------------------------------------------------------------- */
 /* Avatars & banners                                                       */
 /* ---------------------------------------------------------------------- */
 .avatar {
@@ -69,8 +114,15 @@
   padding: var(--space-4);
   color: var(--text);
   box-shadow: var(--shadow);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
-.post-card:hover, .post-card:focus-visible { text-decoration: none; border-color: var(--accent); }
+.post-card:hover, .post-card:focus-visible {
+  text-decoration: none;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+.post-card:active { transform: translateY(0) scale(0.99); }
 
 .post-card-header {
   display: flex;
@@ -140,8 +192,10 @@
   color: var(--text);
   font-size: 0.9rem;
   cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
 .reaction-btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--bg-elevated); }
+.reaction-btn:active { transform: scale(0.92); }
 
 /* ---------------------------------------------------------------------- */
 /* Comments / replies / threads                                           */
@@ -154,6 +208,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: var(--space-3);
+  transition: border-color var(--transition-fast);
 }
 
 .comment-item-header, .thread-item-header, .admin-list-item-header {
@@ -290,6 +345,7 @@
   padding: var(--space-2) var(--space-3);
   box-shadow: var(--shadow);
   font-size: 0.9rem;
+  animation: toastIn 0.35s cubic-bezier(.34,1.56,.64,1);
 }
 .toast[data-kind="error"] { border-color: var(--danger); color: var(--danger); }
 .toast[data-kind="success"] { border-color: var(--success); color: var(--success); }
@@ -308,6 +364,7 @@
   font-weight: 600;
   font-size: 0.85rem;
   white-space: nowrap;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 .tab-btn[aria-selected="true"] { color: var(--accent-contrast); background: var(--accent); border-color: var(--accent); }
 
@@ -339,3 +396,11 @@
   color: var(--text-muted);
 }
 .error-state { color: var(--danger); }
+
+.state-region[data-state="loading"] {
+  animation: pulse-fade 1.3s ease-in-out infinite;
+}
+@keyframes pulse-fade {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
