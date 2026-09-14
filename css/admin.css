@@ -1,0 +1,43 @@
+/* admin.css — admin/moderation styling, consistent with the site's tokens */
+
+.admin-main { max-width: 820px; }
+
+.admin-panel { margin-top: var(--space-4); }
+
+.admin-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.admin-list-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.admin-list-item-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.admin-status-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+.admin-status-tag[data-status="BANNED"] { color: var(--danger); border-color: var(--danger); }
+.admin-status-tag[data-status="SUSPENDED"] { color: var(--accent); border-color: var(--accent); }
+.admin-status-tag[data-status="ACTIVE"] { color: var(--success); border-color: var(--success); }
+
+.audit-entry { font-size: 0.85rem; }
+.audit-entry .actor { font-weight: 600; }
+.audit-entry .action-type { color: var(--accent); font-weight: 600; }
+
+#site-settings-form { max-width: 320px; }

@@ -1,0 +1,56 @@
+/* responsive.css — mobile-first breakpoints, safe areas, no horizontal overflow */
+
+html, body { overflow-x: hidden; max-width: 100%; }
+
+img, svg, video { max-width: 100%; height: auto; }
+
+/* Small iPhones (SE etc.) */
+@media (max-width: 374px) {
+  #main-content { padding: var(--space-3); }
+  .attachment-grid { grid-template-columns: 1fr; }
+  .site-logo { font-size: 1rem; }
+}
+
+/* Large iPhones / general mobile: 375–767px is the primary target and
+   already covered by the mobile-first base rules in style.css/components.css. */
+
+/* Tablets */
+@media (min-width: 768px) {
+  #main-content { max-width: 680px; padding: var(--space-5); }
+  .auth-main { padding-top: var(--space-6); }
+  .attachment-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Desktop: introduce a persistent side rail instead of the bottom nav/FAB,
+   but keep everything reachable without hover dependency. */
+@media (min-width: 1024px) {
+  body { display: flex; flex-direction: column; }
+
+  .bottom-nav {
+    position: static;
+    height: auto;
+    padding: var(--space-2) 0;
+    border-top: none;
+    border-bottom: 1px solid var(--border);
+    max-width: 720px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .bottom-nav-item { flex: none; padding: 0 var(--space-4); }
+
+  #main-content { max-width: 760px; padding: var(--space-6) var(--space-5); }
+
+  .fab {
+    position: sticky;
+    bottom: var(--space-5);
+    margin-left: auto;
+  }
+}
+
+/* Wide desktop */
+@media (min-width: 1440px) {
+  #main-content { max-width: 860px; }
+}
+
+/* Never rely on hover for anything essential — hover states above are
+   additive to :focus-visible, not a replacement for it. */
