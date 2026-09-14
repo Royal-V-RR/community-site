@@ -4,9 +4,13 @@
 // only exist to keep the calling code in comments.js/forum.js/admin.js short.
 
 import { supabase } from './supabase.js';
+import { getSession } from './session.js';
 
 export async function submitReport(targetType, targetId, reason) {
+  const session = getSession();
+  if (!session) throw new Error('You must be signed in to report content.');
   const { error } = await supabase.from('reports').insert({
+    reporter_id: session.user.id,
     target_type: targetType,
     target_id: targetId,
     reason,

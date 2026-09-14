@@ -165,9 +165,16 @@ if (registerForm) {
         return;
       }
 
+      // username/display_name travel as auth metadata (not a direct insert
+      // into profiles) because the public.profiles row itself is created
+      // server-side by the handle_new_user trigger (009_handle_new_user.sql).
+      // That trigger runs with elevated privileges regardless of whether
+      // signUp() returns a live session, which a direct client-side insert
+      // here could not do — see that migration's comment for why.
       const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
+        options: { data: { username, display_name: displayName } },
       });
       if (signUpError) throw signUpError;
 
@@ -177,17 +184,16 @@ if (registerForm) {
         return;
       }
 
-      const { error: profileError } = await supabase.from('profiles').insert({
-        id: userId,
-        username,
-        display_name: displayName,
-      });
-      if (profileError) throw profileError;
+      if (!signUpData.session) {
+        setState(statusRegion, 'empty', 'Check your email to confirm your account, then log in.');
+        return;
+      }
 
       if (avatarFile) {
         try {
           const { uploadAvatar } = await import('./uploads.js');
-          await uploadAvatar(userId, avatarFile);
+          const avatarUrl = await uploadAvatar(userId, avatarFile);
+          await supabase.from('profiles').update({ avatar_path: avatarUrl }).eq('id', userId);
         } catch (uploadErr) {
           console.error('Avatar upload failed', uploadErr);
         }
