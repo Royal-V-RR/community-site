@@ -90,6 +90,9 @@ export function friendlyError(error) {
     return 'An account with that email already exists.';
   }
   if (msg.includes('duplicate') && msg.includes('username')) return 'That username is already taken.';
+  if (msg.includes('rate limit')) {
+    return "Too many emails sent recently — please wait a bit before trying again, or ask the site owner to turn off email confirmation.";
+  }
   if (msg.includes('not authorized')) return "You don't have permission to do that.";
   if (msg.includes('cannot modify the owner') || msg.includes('cannot ban the owner')) {
     return 'The Owner account cannot be modified.';
