@@ -126,13 +126,34 @@
   box-shadow: var(--shadow);
   transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
-.post-card:hover, .post-card:focus-visible {
-  text-decoration: none;
+.post-card:hover, .post-card:focus-within {
   border-color: var(--accent);
   transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
 }
 .post-card:active { transform: translateY(0) scale(0.99); }
+
+.post-card-link { display: block; color: inherit; text-decoration: none; }
+
+.post-card-thumb-wrap {
+  position: relative;
+  margin-top: var(--space-2);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  max-height: 220px;
+}
+.post-card-thumb { display: block; width: 100%; max-height: 220px; object-fit: cover; }
+.post-card-thumb-count {
+  position: absolute;
+  right: var(--space-2);
+  bottom: var(--space-2);
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
 
 .post-card-header {
   display: flex;
@@ -147,6 +168,37 @@
 .post-card-title { margin: 0 0 var(--space-1); font-size: 1.1rem; }
 .post-card-badges { display: flex; gap: var(--space-2); margin-bottom: var(--space-2); }
 .pill { font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--bg-elevated); color: var(--accent); border: 1px solid var(--border); }
+
+/* Compact Twitter-style action row: comment / like / report, all small and
+   borderless so they read as secondary to the post content above them. */
+.post-card-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border);
+}
+.post-card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: var(--space-1) var(--space-2);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+.post-card-action:hover, .post-card-action:focus-visible { background: var(--bg-elevated); color: var(--text); }
+.post-card-action:active { transform: scale(0.92); }
+.post-card-action[aria-pressed="true"] { color: var(--accent); }
+.post-card-action-report { margin-left: auto; }
 
 .post-content { white-space: pre-wrap; word-break: break-word; }
 .post-content--main { font-size: 1.05rem; line-height: 1.65; }
