@@ -48,6 +48,12 @@ export const ICONS = {
   send: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 20l16-8L4 4v6l10 2-10 2v6Z"/></svg>`,
 
   flag: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M6 4v16"/><path d="M6 4h11l-2.5 4L17 12H6"/></svg>`,
+
+  ticket: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V8Z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>`,
+
+  users: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c1-3 3-4.6 6-4.6s5 1.6 6 4.6"/><path d="M16 8.5a2.8 2.8 0 1 1 0-5.6"/><path d="M15 15.7c2.6.4 4 1.8 4.8 4.3"/></svg>`,
+
+  megaphone: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M3 10v4a1 1 0 0 0 1 1h2l9 5V4l-9 5H4a1 1 0 0 0-1 1Z"/><path d="M19 9.5a4 4 0 0 1 0 5"/></svg>`,
 };
 
 /** Returns an icon's markup at the smaller `.icon-sm` size (16px), for

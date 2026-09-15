@@ -102,6 +102,7 @@ const AUTH_REQUIRED_PAGES = new Set([
   'notifications.html',
   'settings.html',
   'admin.html',
+  'general-processing.html',
 ]);
 
 const currentPage = window.location.pathname.split('/').pop() || 'index.html';
