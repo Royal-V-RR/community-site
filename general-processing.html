@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>(function(){try{var t=localStorage.getItem("community-site:theme")||"dark";var r=t==="system"?(window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"):t;document.documentElement.dataset.theme=r;var a=localStorage.getItem("community-site:accent");if(a)document.documentElement.style.setProperty("--accent",a);}catch(e){}})();</script>
+<title>General Processing · Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/general-processing.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="site-header">
+  <a class="site-logo" href="index.html">Community</a>
+  <div class="header-actions">
+    <a href="notifications.html" class="icon-btn" aria-label="Notifications">
+      <span class="badge" id="notif-badge" hidden>0</span>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 3.2 1 5 2 6H4c1-1 2-2.8 2-6Z"/><path d="M9.5 19a2.5 2.5 0 0 0 5 0"/></svg></span>
+    </a>
+    <button type="button" class="icon-btn hamburger-toggle" id="hamburger-toggle"
+            aria-expanded="false" aria-controls="hamburger-menu" aria-label="Open menu">
+      <span class="hamburger-bars" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
+    </button>
+  </div>
+</header>
+
+<div class="menu-backdrop" id="menu-backdrop" hidden></div>
+<nav id="hamburger-menu" class="hamburger-menu" hidden aria-label="Secondary">
+  <div class="hamburger-menu-header">
+    <span class="hamburger-menu-title">Menu</span>
+    <button type="button" class="icon-btn" id="hamburger-close" aria-label="Close menu"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg></button>
+  </div>
+  <ul>
+    <li><a href="search.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span></a></li>
+    <li><a href="notifications.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 3.2 1 5 2 6H4c1-1 2-2.8 2-6Z"/><path d="M9.5 19a2.5 2.5 0 0 0 5 0"/></svg><span>Notifications</span></a></li>
+    <li><a href="settings.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M4.9 6.2l1.6 1.5M17.5 16.3l1.6 1.5M3 12h2.2M18.8 12H21M4.9 17.8l1.6-1.5M17.5 7.7l1.6-1.5"/></svg><span>Settings</span></a></li>
+    <li><a href="profile.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5.5 7-5.5s5.8 1.9 7 5.5"/></svg><span>Profile</span></a></li>
+    <li><a href="forums.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z"/></svg><span>General</span></a></li>
+    <li><a href="general-processing.html" class="is-current"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V8Z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg><span>General Processing</span></a></li>
+    <li><a href="admin.html" id="admin-link" hidden><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/></svg><span>Admin</span></a></li>
+  </ul>
+  <div class="hamburger-menu-divider"></div>
+  <ul>
+    <li><button type="button" id="logout-btn" class="hamburger-logout"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M14 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4"/><path d="M10 8l-4 4 4 4"/><path d="M6 12h12"/></svg><span>Log out</span></button></li>
+  </ul>
+</nav>
+
+<main id="main-content" class="wr-main">
+
+  <!-- Gate: choose a ticket name before joining the queue -->
+  <section id="wr-gate" class="wr-gate">
+    <div class="wr-gate-card">
+      <div class="wr-emblem" aria-hidden="true">
+        <svg viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="1.2"/>
+          <circle cx="24" cy="24" r="16" fill="none" stroke="currentColor" stroke-width="1"/>
+          <path d="M24 10 L26.6 20.3 L37 21 L28 27.4 L31 38 L24 31.4 L17 38 L20 27.4 L11 21 L21.4 20.3 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="wr-letterhead">Department of General Processing</div>
+      <h1 class="wr-title">The Waiting Room</h1>
+      <p class="wr-intro">You are about to enter the queue. Others are waiting too, and you'll be able to see them, and speak with them, while you wait.</p>
+      <div class="field">
+        <label for="wr-ticket-name">Name your ticket (optional)</label>
+        <input type="text" id="wr-ticket-name" maxlength="48" placeholder="e.g. Missing Package Inquiry" autocomplete="off">
+      </div>
+      <button type="button" id="wr-enter-btn" class="btn btn-primary btn-block">Enter the Queue</button>
+    </div>
+  </section>
+
+  <!-- Room: shown once a ticket exists -->
+  <section id="wr-room" class="wr-room" hidden>
+    <div class="wr-ticket">
+      <div class="wr-letterhead">Department of General Processing</div>
+      <h1 class="wr-title">The Waiting Room</h1>
+
+      <div class="wr-banner" id="wr-banner" hidden></div>
+
+      <div class="wr-field">
+        <div class="wr-label">Ticket number</div>
+        <div class="wr-seal"><div class="wr-seal-value" id="wr-ticket-number">000000</div></div>
+        <div class="wr-ticket-name" id="wr-ticket-name-display" hidden></div>
+      </div>
+
+      <div class="wr-field">
+        <div class="wr-label">Estimated waiting time</div>
+        <div class="wr-wait" id="wr-wait-time">0 hours, 0 minutes, 0 seconds</div>
+      </div>
+
+      <div class="wr-field wr-log-field">
+        <div class="wr-log-row">
+          <div class="wr-label">Activity</div>
+          <button type="button" id="wr-broadcast-btn" class="wr-broadcast-btn" hidden>
+            <svg viewBox="0 0 24 24" class="icon icon-sm" aria-hidden="true"><path d="M3 10v4a1 1 0 0 0 1 1h2l9 5V4l-9 5H4a1 1 0 0 0-1 1Z"/><path d="M19 9.5a4 4 0 0 1 0 5"/></svg>
+            <span>Broadcast</span>
+          </button>
+        </div>
+        <div class="wr-log" id="wr-log"></div>
+      </div>
+
+      <div class="wr-notice">
+        <p>Your request continues through the system, according to its own schedule.</p>
+        <p>You may leave, and come back whenever you like. Your ticket will still be here.</p>
+      </div>
+
+      <button type="button" id="wr-leave-btn" class="wr-leave-btn">Leave the queue</button>
+    </div>
+  </section>
+
+  <!-- Floating pill: opens the who's-waiting / live-chat sheet -->
+  <button type="button" id="wr-pill" class="wr-pill" hidden aria-haspopup="true" aria-expanded="false">
+    <span class="wr-pill-avatars" id="wr-pill-avatars"></span>
+    <span class="wr-pill-text"><span id="wr-pill-count">0</span> also waiting</span>
+    <span class="wr-pill-dot" id="wr-pill-dot" hidden></span>
+  </button>
+
+  <div class="wr-sheet-backdrop" id="wr-sheet-backdrop" hidden></div>
+  <section class="wr-sheet" id="wr-sheet" hidden aria-label="Who's waiting and live chat">
+    <div class="wr-sheet-drag" id="wr-sheet-drag"><span class="wr-sheet-handle"></span></div>
+
+    <div class="wr-sheet-tabs">
+      <button type="button" class="wr-sheet-tab is-active" id="wr-tab-people" data-panel="people" aria-selected="true">
+        <svg viewBox="0 0 24 24" class="icon icon-sm" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c1-3 3-4.6 6-4.6s5 1.6 6 4.6"/><path d="M16 8.5a2.8 2.8 0 1 1 0-5.6"/><path d="M15 15.7c2.6.4 4 1.8 4.8 4.3"/></svg>
+        <span>Who's waiting</span>
+      </button>
+      <button type="button" class="wr-sheet-tab" id="wr-tab-chat" data-panel="chat" aria-selected="false">
+        <svg viewBox="0 0 24 24" class="icon icon-sm" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z"/></svg>
+        <span>Live chat</span>
+        <span class="wr-tab-dot" id="wr-tab-dot" hidden></span>
+      </button>
+      <span class="wr-sheet-tab-indicator" id="wr-tab-indicator" aria-hidden="true"></span>
+    </div>
+
+    <div class="wr-sheet-panels" id="wr-sheet-panels">
+      <div class="wr-sheet-panel" id="wr-panel-people" data-panel="people">
+        <ul class="wr-people-list" id="wr-people-list"></ul>
+      </div>
+      <div class="wr-sheet-panel" id="wr-panel-chat" data-panel="chat" hidden>
+        <ul class="wr-chat-log" id="wr-chat-log"></ul>
+        <form id="wr-chat-form" class="wr-chat-form" autocomplete="off">
+          <input type="text" id="wr-chat-input" maxlength="300" placeholder="Say something to the room…" autocomplete="off">
+          <button type="submit" class="icon-btn wr-chat-send" aria-label="Send">
+            <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 20l16-8L4 4v6l10 2-10 2v6Z"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<nav class="bottom-nav" aria-label="Primary">
+    <a href="index.html" class="bottom-nav-item"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h4v-6h2v6h4a1 1 0 0 0 1-1v-9"/></svg><span>Home</span></a>
+    <a href="forums.html" class="bottom-nav-item"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z"/></svg><span>General</span></a>
+    <a href="profile.html" class="bottom-nav-item"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5.5 7-5.5s5.8 1.9 7 5.5"/></svg><span>Profile</span></a>
+</nav>
+
+<script type="module" src="js/config.js"></script>
+<script type="module" src="js/supabase.js"></script>
+<script type="module" src="js/utils.js"></script>
+<script type="module" src="js/session.js"></script>
+<script type="module" src="js/navigation.js"></script>
+<script type="module" src="js/components.js"></script>
+<script type="module" src="js/general-processing.js"></script>
+</body>
+</html>
