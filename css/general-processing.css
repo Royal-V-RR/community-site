@@ -1,0 +1,414 @@
+/* general-processing.css — "The Waiting Room" page.
+   Layered on top of the app's normal dark/light tokens (--bg-card, --border,
+   --accent, etc.) so it still respects the site's theme toggle, with a
+   couple of flavor-only accents (a gold rule, a burgundy stamp) that don't
+   change between themes since they're decorative, not semantic. */
+
+:root {
+  --wr-gold: #b3843d;
+  --wr-gold-soft: rgba(179, 132, 61, 0.35);
+  --wr-burgundy: #a23b48;
+  --wr-burgundy-soft: rgba(162, 59, 72, 0.16);
+  --wr-serif: 'Cormorant Garamond', Georgia, serif;
+  --wr-mono: 'Special Elite', monospace;
+}
+
+.wr-main { max-width: 560px; }
+
+.hamburger-menu a.is-current { color: var(--accent); }
+.hamburger-menu a.is-current .icon { color: var(--accent); }
+
+/* ---------------------------------------------------------------------- */
+/* Gate — choose a ticket name before joining                             */
+/* ---------------------------------------------------------------------- */
+.wr-gate-card {
+  background: var(--bg-card);
+  border: 1px solid var(--wr-gold-soft);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+  animation: wrCardIn 0.5s cubic-bezier(.2,.8,.3,1.1) both;
+}
+
+.wr-emblem { color: var(--wr-gold); display: flex; justify-content: center; margin-bottom: var(--space-2); }
+.wr-emblem svg { width: 40px; height: 40px; }
+
+.wr-letterhead {
+  font-family: var(--wr-serif);
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-3);
+}
+
+.wr-title {
+  font-family: var(--wr-serif);
+  font-weight: 600;
+  font-size: 1.9rem;
+  margin: 0 0 var(--space-2);
+}
+
+.wr-intro {
+  font-family: var(--wr-serif);
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 1.02rem;
+  line-height: 1.5;
+  max-width: 40ch;
+  margin: 0 auto var(--space-4);
+}
+
+@keyframes wrCardIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ---------------------------------------------------------------------- */
+/* The ticket itself                                                       */
+/* ---------------------------------------------------------------------- */
+.wr-ticket {
+  background: var(--bg-card);
+  border: 1px solid var(--wr-gold-soft);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  text-align: center;
+  animation: wrCardIn 0.45s cubic-bezier(.2,.8,.3,1.1) both;
+}
+
+.wr-banner {
+  border: 1px solid var(--wr-burgundy);
+  background: var(--wr-burgundy-soft);
+  color: var(--wr-burgundy);
+  padding: var(--space-3);
+  margin: 0 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  font-family: var(--wr-mono);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  opacity: 0;
+  transform: scale(1.25) rotate(-2deg);
+}
+.wr-banner.show { animation: wrStampIn 0.5s cubic-bezier(.2,.8,.3,1.2) forwards; }
+@keyframes wrStampIn {
+  0% { opacity: 0; transform: scale(1.4) rotate(-4deg); }
+  60% { opacity: 1; transform: scale(0.96) rotate(-2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-2deg); }
+}
+
+.wr-field { margin-bottom: var(--space-4); }
+.wr-label { font-family: var(--wr-serif); font-style: italic; font-size: 0.88rem; color: var(--text-muted); margin-bottom: var(--space-2); }
+
+.wr-seal {
+  width: 132px;
+  height: 132px;
+  margin: 0 auto;
+  border: 2px solid var(--wr-burgundy);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transform: rotate(-3deg);
+}
+.wr-seal::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid var(--wr-gold);
+  border-radius: 50%;
+}
+.wr-seal-value { font-family: var(--wr-mono); font-size: 1.5rem; color: var(--wr-burgundy); letter-spacing: 1px; }
+
+.wr-ticket-name { margin-top: var(--space-2); font-family: var(--wr-serif); font-style: italic; color: var(--text-muted); }
+
+.wr-wait { font-family: var(--wr-mono); font-size: 1.05rem; }
+
+.wr-log-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2); }
+.wr-log-row .wr-label { margin-bottom: 0; }
+
+.wr-broadcast-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--wr-burgundy-soft);
+  color: var(--wr-burgundy);
+  border: 1px solid var(--wr-burgundy);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+.wr-broadcast-btn:hover, .wr-broadcast-btn:focus-visible { background: var(--wr-burgundy); color: var(--accent-contrast); }
+.wr-broadcast-btn:active { transform: scale(0.94); }
+
+.wr-log {
+  height: 168px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  font-family: var(--wr-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 26px;
+}
+.wr-log-entry {
+  opacity: 0;
+  transform: translateY(3px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wr-log-entry.show { animation: wrEntryIn 0.4s ease forwards; }
+@keyframes wrEntryIn { to { opacity: 1; transform: translateY(0); } }
+.wr-log-entry--admin { color: var(--wr-burgundy); font-weight: 700; white-space: normal; }
+.wr-log-time { color: var(--wr-gold); opacity: 0.9; margin-right: 8px; }
+
+.wr-notice {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  font-family: var(--wr-serif);
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+.wr-notice p { margin: 0 0 var(--space-1); }
+
+.wr-leave-btn {
+  margin-top: var(--space-4);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.wr-leave-btn:hover, .wr-leave-btn:focus-visible { color: var(--danger); }
+
+/* ---------------------------------------------------------------------- */
+/* Floating "who's waiting" pill                                          */
+/* ---------------------------------------------------------------------- */
+.wr-pill {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + var(--space-3));
+  transform: translateX(-50%);
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--bg-elevated);
+  border: 1px solid var(--wr-gold-soft);
+  border-radius: 999px;
+  padding: 8px 16px 8px 8px;
+  box-shadow: var(--shadow);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  animation: wrPillIn 0.4s cubic-bezier(.34,1.56,.64,1) both;
+}
+.wr-pill:active { transform: translateX(-50%) scale(0.96); }
+@keyframes wrPillIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(16px) scale(0.9); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+.wr-pill-avatars { display: flex; }
+.wr-pill-avatars img { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--bg-elevated); margin-left: -8px; }
+.wr-pill-avatars img:first-child { margin-left: 0; }
+
+.wr-pill-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--danger);
+  animation: wrDotPulse 1.4s ease-in-out infinite;
+}
+@keyframes wrDotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Bottom sheet: who's waiting / live chat                                */
+/* ---------------------------------------------------------------------- */
+.wr-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 96;
+  background: rgba(4, 8, 14, 0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+.wr-sheet-backdrop.is-open { opacity: 1; }
+
+.wr-sheet {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 97;
+  height: min(72vh, 620px);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 320ms cubic-bezier(.2,.85,.3,1.05);
+  padding-bottom: var(--safe-bottom);
+}
+.wr-sheet.is-open { transform: translateY(0); }
+
+.wr-sheet-drag { display: flex; justify-content: center; padding: var(--space-2) 0; cursor: pointer; }
+.wr-sheet-handle { width: 40px; height: 4px; border-radius: 999px; background: var(--border); }
+
+.wr-sheet-tabs {
+  position: relative;
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  padding: 0 var(--space-2);
+}
+.wr-sheet-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: var(--space-3) var(--space-2);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+.wr-sheet-tab.is-active { color: var(--accent); }
+.wr-sheet-tab-indicator {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background: var(--accent);
+  transition: transform 260ms cubic-bezier(.3,.9,.4,1);
+}
+.wr-tab-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--danger);
+  animation: wrDotPulse 1.4s ease-in-out infinite;
+}
+
+.wr-sheet-panels { flex: 1; min-height: 0; display: flex; }
+.wr-sheet-panel { flex: 1; min-height: 0; display: flex; flex-direction: column; animation: wrPanelIn 220ms ease both; }
+@keyframes wrPanelIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Who's waiting */
+.wr-people-list {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  overflow-y: auto;
+  flex: 1;
+}
+.wr-people-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  opacity: 0;
+  transform: translateY(6px) scale(0.98);
+  transition: opacity 280ms ease, transform 280ms cubic-bezier(.34,1.2,.64,1), max-height 280ms ease, margin 280ms ease, padding 280ms ease;
+  max-height: 64px;
+  overflow: hidden;
+}
+.wr-people-item.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+.wr-people-item.is-leaving {
+  opacity: 0;
+  transform: translateX(24px) scale(0.96);
+  max-height: 0;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.wr-people-item:hover { background: var(--bg-card); }
+.wr-people-info { display: flex; flex-direction: column; min-width: 0; }
+.wr-people-name { font-weight: 600; font-size: 0.92rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wr-people-you { color: var(--accent); font-weight: 700; }
+.wr-people-ticket { font-size: 0.8rem; color: var(--text-muted); font-style: italic; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wr-people-ticket--muted { opacity: 0.6; }
+
+/* Live chat */
+.wr-chat-log {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-3);
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.wr-chat-message {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-end;
+  opacity: 0;
+  transform: translateY(10px) scale(0.97);
+  transition: opacity 240ms ease, transform 240ms cubic-bezier(.34,1.3,.64,1);
+}
+.wr-chat-message.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+.wr-chat-message--self { flex-direction: row-reverse; }
+.wr-chat-bubble { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-2) var(--space-3); max-width: 75%; }
+.wr-chat-message--self .wr-chat-bubble { background: color-mix(in srgb, var(--accent) 16%, var(--bg-card)); border-color: var(--accent); }
+.wr-chat-meta { display: flex; gap: var(--space-2); align-items: baseline; margin-bottom: 2px; }
+.wr-chat-author { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); }
+.wr-chat-time { font-size: 0.7rem; color: var(--text-muted); opacity: 0.7; }
+.wr-chat-text { font-size: 0.92rem; word-break: break-word; white-space: pre-wrap; }
+
+.wr-chat-form {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+.wr-chat-form input {
+  flex: 1;
+  min-height: 42px;
+  padding: 0 var(--space-3);
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 0.92rem;
+}
+.wr-chat-form input:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.wr-chat-send {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform var(--transition-fast);
+}
+.wr-chat-send:active { transform: scale(0.9); }
+
+@media (prefers-reduced-motion: reduce) {
+  .wr-banner, .wr-log-entry, .wr-pill, .wr-people-item, .wr-chat-message, .wr-gate-card, .wr-ticket, .wr-sheet-panel {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
