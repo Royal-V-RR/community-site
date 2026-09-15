@@ -46,7 +46,15 @@ export const ICONS = {
   moreHorizontal: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>`,
 
   send: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 20l16-8L4 4v6l10 2-10 2v6Z"/></svg>`,
+
+  flag: `<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M6 4v16"/><path d="M6 4h11l-2.5 4L17 12H6"/></svg>`,
 };
+
+/** Returns an icon's markup at the smaller `.icon-sm` size (16px), for
+ *  compact contexts like the feed card action row. */
+export function smallIcon(name) {
+  return (ICONS[name] || '').replace('class="icon', 'class="icon icon-sm');
+}
 
 /** Convenience: build a labelled icon button's inner markup (icon + sr-only text). */
 export function iconWithLabel(iconName, label) {

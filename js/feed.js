@@ -1,8 +1,11 @@
 // feed.js — powers index.html: featured posts + the main chronological feed.
 
 import { supabase } from './supabase.js';
-import { qs, setState, friendlyError } from './utils.js';
+import { qs, setState, friendlyError, showToast } from './utils.js';
 import { renderPostCard } from './components.js';
+import { toggleReaction } from './reactions.js';
+import { getSession } from './session.js';
+import { submitReport } from './moderation.js';
 import { PAGE_SIZE } from './config.js';
 
 const feedList = qs('#feed-list');
@@ -16,8 +19,59 @@ let reachedEnd = false;
 
 const POST_SELECT = `
   id, title, content, is_pinned, is_featured, created_at,
-  profiles:author_id ( id, username, display_name, avatar_path, role )
+  profiles:author_id ( id, username, display_name, avatar_path, role ),
+  post_attachments ( id, storage_path, file_name, mime_type, display_order ),
+  comment_count:comments(count),
+  reaction_count:post_reactions(count)
 `;
+
+// Batches the "did I react to this?" lookup for a whole page of posts at
+// once, instead of one query per card — the counts themselves already come
+// back from POST_SELECT above.
+async function withReactedState(posts) {
+  const session = getSession();
+  if (!session || posts.length === 0) return posts;
+  const { data } = await supabase
+    .from('post_reactions')
+    .select('post_id')
+    .eq('user_id', session.user.id)
+    .eq('reaction_type', 'like')
+    .in('post_id', posts.map((p) => p.id));
+  const reacted = new Set((data || []).map((r) => r.post_id));
+  return posts.map((p) => ({ ...p, reacted: reacted.has(p.id) }));
+}
+
+// Delegated click handling for the compact action row on every card — the
+// like button toggles in place, the report button opens the same prompt
+// flow post.html uses. Wired once per list container rather than per card.
+function wireCardActions(container) {
+  if (!container) return;
+  container.addEventListener('click', async (event) => {
+    const reactionBtn = event.target.closest('[data-role="reaction-btn"]');
+    if (reactionBtn) {
+      const card = reactionBtn.closest('.post-card');
+      if (card) await toggleReaction(card.dataset.postId, card);
+      return;
+    }
+
+    const reportBtn = event.target.closest('[data-action="report"]');
+    if (reportBtn) {
+      const postId = reportBtn.dataset.postId;
+      if (!getSession()) {
+        window.location.href = 'login.html?redirect=index.html';
+        return;
+      }
+      const reason = window.prompt('Tell us what is wrong with this post:');
+      if (!reason || !reason.trim()) return;
+      try {
+        await submitReport('post', postId, reason.trim());
+        showToast('Report submitted. Thank you.', 'success');
+      } catch (error) {
+        showToast(friendlyError(error), 'error');
+      }
+    }
+  });
+}
 
 async function loadFeatured() {
   const { data, error } = await supabase
@@ -30,7 +84,7 @@ async function loadFeatured() {
 
   if (error || !data || data.length === 0) return;
   featuredSection.hidden = false;
-  featuredList.innerHTML = data.map(renderPostCard).join('');
+  featuredList.innerHTML = (await withReactedState(data)).map(renderPostCard).join('');
 }
 
 async function loadFeed(reset = false) {
@@ -64,7 +118,8 @@ async function loadFeed(reset = false) {
     return;
   }
 
-  feedList.insertAdjacentHTML('beforeend', data.map(renderPostCard).join(''));
+  const posts = await withReactedState(data);
+  feedList.insertAdjacentHTML('beforeend', posts.map(renderPostCard).join(''));
 
   if (data.length < PAGE_SIZE) {
     reachedEnd = true;
@@ -76,6 +131,8 @@ async function loadFeed(reset = false) {
 }
 
 loadMoreBtn?.addEventListener('click', () => loadFeed());
+wireCardActions(feedList);
+wireCardActions(featuredList);
 
 loadFeatured();
 loadFeed(true);

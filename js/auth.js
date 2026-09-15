@@ -136,8 +136,8 @@ if (registerForm) {
       setFieldError('reg-display-name', 'Enter a display name.');
       hasError = true;
     }
-    if (!validators.isValidEmail(email)) {
-      setFieldError('reg-email', 'Enter a valid email address.');
+    if (!validators.isValidEmail(email) && email) {
+      setFieldError('reg-email', 'Enter a valid email address, or leave it blank.');
       hasError = true;
     }
     if (!validators.minLength(password, 8)) {
@@ -171,8 +171,19 @@ if (registerForm) {
       // That trigger runs with elevated privileges regardless of whether
       // signUp() returns a live session, which a direct client-side insert
       // here could not do — see that migration's comment for why.
+      // Email is optional in the form — if left blank, sign up with a
+      // placeholder address on the reserved .invalid TLD (RFC 2606), so
+      // Supabase still has something unique to key the account on. Login
+      // afterwards is always by username anyway (see the login handler
+      // above), so nobody needs to know or remember this address.
+      // NOTE: this only works if "Confirm email" is turned OFF for this
+      // project (Dashboard → Authentication → Providers → Email) — a
+      // .invalid address can never receive a real confirmation link, so a
+      // blank-email signup would otherwise be permanently stuck unconfirmed.
+      const signupEmail = email || `${username}@users.invalid`;
+
       const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-        email,
+        email: signupEmail,
         password,
         options: { data: { username, display_name: displayName } },
       });
@@ -180,12 +191,16 @@ if (registerForm) {
 
       const userId = signUpData.user?.id;
       if (!userId) {
-        setState(statusRegion, 'empty', 'Check your email to confirm your account, then log in.');
+        setState(statusRegion, 'empty', email
+          ? 'Check your email to confirm your account, then log in.'
+          : 'Account created, but email confirmation is required for this site — ask the owner to turn it off, or add a real email and try again.');
         return;
       }
 
       if (!signUpData.session) {
-        setState(statusRegion, 'empty', 'Check your email to confirm your account, then log in.');
+        setState(statusRegion, 'empty', email
+          ? 'Check your email to confirm your account, then log in.'
+          : 'Account created, but email confirmation is required for this site — ask the owner to turn it off, or add a real email and try again.');
         return;
       }
 

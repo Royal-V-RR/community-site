@@ -1,8 +1,9 @@
 // components.js · shared DOM-rendering helpers. Every function returns an
 // HTML string built with escapeHtml() around any user-supplied text.
 
-import { escapeHtml, textToSafeHtml, formatDate, formatFileSize } from './utils.js';
-import { ICONS } from './icons.js';
+import { escapeHtml, textToSafeHtml, formatDate, formatFileSize, isSafeUrl } from './utils.js';
+import { ICONS, smallIcon } from './icons.js';
+import { renderReactionButton } from './reactions.js';
 
 export function avatarImg(profile, size = 40) {
   const alt = escapeHtml(profile?.display_name || profile?.username || 'User');
@@ -22,6 +23,17 @@ export function statusTag(status) {
   return `<span class="admin-status-tag" data-status="${escapeHtml(status)}">${escapeHtml(status)}</span>`;
 }
 
+const CARD_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
+
+function renderCardThumbnail(attachments) {
+  const sorted = (attachments || []).slice().sort((a, b) => a.display_order - b.display_order);
+  const first = sorted[0];
+  if (!first || !CARD_IMAGE_TYPES.includes(first.mime_type) || !isSafeUrl(first.storage_path)) return '';
+  const src = escapeHtml(first.storage_path);
+  const extra = sorted.length > 1 ? `<span class="post-card-thumb-count">+${sorted.length - 1}</span>` : '';
+  return `<div class="post-card-thumb-wrap"><img class="post-card-thumb" src="${src}" alt="" loading="lazy">${extra}</div>`;
+}
+
 export function renderPostCard(post) {
   const author = post.profiles || {};
   const title = post.title ? `<h3 class="post-card-title">${escapeHtml(post.title)}</h3>` : '';
@@ -29,20 +41,35 @@ export function renderPostCard(post) {
   if (post.is_pinned) badges.push('<span class="pill">Pinned</span>');
   if (post.is_featured) badges.push('<span class="pill">Featured</span>');
   const excerpt = (post.content || '').slice(0, 220);
+  const commentCount = post.comment_count?.[0]?.count ?? 0;
+  const reactionCount = post.reaction_count?.[0]?.count ?? 0;
+  const postUrl = `post.html?id=${encodeURIComponent(post.id)}`;
 
   return `
-    <a class="post-card" href="post.html?id=${encodeURIComponent(post.id)}">
-      <div class="post-card-header">
-        ${avatarImg(author, 36)}
-        <div class="post-card-meta">
-          <span class="author">${escapeHtml(author.display_name || author.username || 'Unknown')}</span>
-          <span class="timestamp">${formatDate(post.created_at)}</span>
+    <article class="post-card" data-post-id="${post.id}">
+      <a class="post-card-link" href="${postUrl}">
+        <div class="post-card-header">
+          ${avatarImg(author, 36)}
+          <div class="post-card-meta">
+            <span class="author">${escapeHtml(author.display_name || author.username || 'Unknown')}</span>
+            <span class="timestamp">${formatDate(post.created_at)}</span>
+          </div>
         </div>
+        ${badges.length ? `<div class="post-card-badges">${badges.join('')}</div>` : ''}
+        ${title}
+        <div class="post-content">${textToSafeHtml(excerpt)}${post.content.length > 220 ? '…' : ''}</div>
+        ${renderCardThumbnail(post.post_attachments)}
+      </a>
+      <div class="post-card-actions">
+        <a class="post-card-action" href="${postUrl}#comment-input" aria-label="Comments">
+          ${smallIcon('messageSquare')}<span>${commentCount}</span>
+        </a>
+        ${renderReactionButton({ count: reactionCount, reacted: Boolean(post.reacted) }, { compact: true })}
+        <button type="button" class="post-card-action post-card-action-report" data-action="report" data-post-id="${post.id}" aria-label="Report">
+          ${smallIcon('flag')}
+        </button>
       </div>
-      ${badges.length ? `<div class="post-card-badges">${badges.join('')}</div>` : ''}
-      ${title}
-      <div class="post-content">${textToSafeHtml(excerpt)}${post.content.length > 220 ? '…' : ''}</div>
-    </a>
+    </article>
   `;
 }
 

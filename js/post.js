@@ -89,7 +89,7 @@ async function loadPost() {
   if (post.allow_reactions) {
     const state = await getReactionState(post.id);
     reactionsEl.innerHTML = renderReactionButton(state);
-    qs('#reaction-btn', reactionsEl).addEventListener('click', () => toggleReaction(post.id, reactionsEl));
+    qs('[data-role="reaction-btn"]', reactionsEl).addEventListener('click', () => toggleReaction(post.id, reactionsEl));
   }
 
   initComments(post.id, post.allow_comments);
