@@ -103,6 +103,7 @@ const AUTH_REQUIRED_PAGES = new Set([
   'settings.html',
   'admin.html',
   'general-processing.html',
+  'deltarune-trainer.html',
 ]);
 
 const currentPage = window.location.pathname.split('/').pop() || 'index.html';
