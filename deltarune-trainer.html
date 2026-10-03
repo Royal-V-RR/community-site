@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>(function(){try{var t=localStorage.getItem("community-site:theme")||"dark";var r=t==="system"?(window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"):t;document.documentElement.dataset.theme=r;var a=localStorage.getItem("community-site:accent");if(a)document.documentElement.style.setProperty("--accent",a);}catch(e){}})();</script>
-<title>Notifications · Community</title>
+<title>Deltarune Trainer · Community</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/deltarune-trainer.css">
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to content</a>
@@ -15,6 +16,10 @@
 <header class="site-header">
   <a class="site-logo" href="index.html">Community</a>
   <div class="header-actions">
+    <a href="notifications.html" class="icon-btn" aria-label="Notifications">
+      <span class="badge" id="notif-badge" hidden>0</span>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 3.2 1 5 2 6H4c1-1 2-2.8 2-6Z"/><path d="M9.5 19a2.5 2.5 0 0 0 5 0"/></svg></span>
+    </a>
     <button type="button" class="icon-btn hamburger-toggle" id="hamburger-toggle"
             aria-expanded="false" aria-controls="hamburger-menu" aria-label="Open menu">
       <span class="hamburger-bars" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
@@ -35,7 +40,7 @@
     <li><a href="profile.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5.5 7-5.5s5.8 1.9 7 5.5"/></svg><span>Profile</span></a></li>
     <li><a href="forums.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z"/></svg><span>General</span></a></li>
     <li><a href="general-processing.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V8Z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg><span>General Processing</span></a></li>
-    <li><a href="deltarune-trainer.html"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg><span>Deltarune Trainer</span></a></li>
+    <li><a href="deltarune-trainer.html" class="is-current"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg><span>Deltarune Trainer</span></a></li>
     <li><a href="admin.html" id="admin-link" hidden><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/></svg><span>Admin</span></a></li>
   </ul>
   <div class="hamburger-menu-divider"></div>
@@ -44,14 +49,17 @@
   </ul>
 </nav>
 
-<main id="main-content">
-  <div class="page-header-row">
-    <h1>Notifications</h1>
-    <button type="button" class="btn btn-link" id="mark-all-read-btn">Mark all read</button>
+<main id="main-content" class="dt-main">
+  <h1 class="dt-title">Deltarune Trainer</h1>
+  <div class="dt-summary">
+    <div class="dt-summary-row">
+      <span id="dt-overall" class="dt-overall"></span>
+      <span id="dt-save" class="dt-save" hidden aria-live="polite"></span>
+    </div>
+    <div class="dt-bar dt-bar-lg" aria-hidden="true"><span class="dt-bar-fill" id="dt-overall-bar"></span></div>
   </div>
-
-  <div id="notifications-status" class="state-region" role="status" aria-live="polite"></div>
-  <ul id="notifications-list" class="notification-list"></ul>
+  <div id="dt-status" class="state-region" role="status" aria-live="polite"></div>
+  <div id="dt-list"></div>
 </main>
 
 <nav class="bottom-nav" aria-label="Primary">
@@ -66,6 +74,6 @@
 <script type="module" src="js/session.js"></script>
 <script type="module" src="js/navigation.js"></script>
 <script type="module" src="js/components.js"></script>
-<script type="module" src="js/notifications.js"></script>
+<script type="module" src="js/deltarune-trainer.js"></script>
 </body>
 </html>
